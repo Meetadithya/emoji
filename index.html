@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Tap the Emoji!</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body style="margin:0; padding:0; background:#ffe4e1; font-family:sans-serif; text-align:center;">
+  <h2 style="margin-top: 20px;">🎯 Tap the ❤️!</h2>
+  <p>Score: <span id="score">0</span> | Time Left: <span id="time">15</span>s</p>
+
+  <div id="emoji" onclick="tapEmoji()"
+       style="font-size:50px; position:absolute; top:100px; left:100px; cursor:pointer;">❤️</div>
+
+  <p style="position:fixed; bottom:10px; width:100%;">Made with ❤️ by Adithya</p>
+
+  <script>
+    let score = 0;
+    let timeLeft = 15;
+    const scoreDisplay = document.getElementById("score");
+    const timeDisplay = document.getElementById("time");
+    const emoji = document.getElementById("emoji");
+
+    function tapEmoji() {
+      if (timeLeft <= 0) return;
+      score++;
+      scoreDisplay.textContent = score;
+      moveEmoji();
+    }
+
+    function moveEmoji() {
+      const maxX = window.innerWidth - 60;
+      const maxY = window.innerHeight - 150;
+      const randomX = Math.floor(Math.random() * maxX);
+      const randomY = Math.floor(Math.random() * maxY);
+      emoji.style.left = randomX + "px";
+      emoji.style.top = randomY + "px";
+    }
+
+    const timer = setInterval(() => {
+      timeLeft--;
+      timeDisplay.textContent = timeLeft;
+      if (timeLeft <= 0) {
+        clearInterval(timer);
+        emoji.style.display = "none";
+        alert("⏰ Time's up! Your score: " + score);
+      }
+    }, 1000);
+  </script>
+</body>
+</html>
